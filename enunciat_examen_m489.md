@@ -4,11 +4,11 @@
 
 **Unitats Formatives:** RA2 i RA3  
 **Curs:** 2n DAM · Videojocs  
-**Data:** ____________________  
+**Data:** 23/03/2026 
 **Durada:** 2 hores  
 
-**Alumne/a:** ________________________________________________  
-**Grup:** __________________________________________________  
+**Alumne/a:** Víctor Escudero Narro
+**Grup:** 2n DAM
 
 ---
 
@@ -41,9 +41,9 @@ Al projecte **Cars**, el widget `CarsPage` gestiona el número de pàgina actual
 
 **Resposta:**
 
-```
-[Escriu la teva resposta aquí]
-```
+- La funció de setState es la que utilitzem per actualitzar dades en pantalla quan utilitzem un StatefulWidget.
+
+- En aquest cas, el trobem dins de cars_page.dart (fem la crida en varies ocasions) per a actualitzar una variable de carrega (isLoading) i per a actualitzar la llista de cotxer (cars).
 
 ---
 
@@ -55,9 +55,7 @@ Al projecte **Camera**, el widget `CameraScreen` utilitza un `CameraController` 
 
 **Resposta:**
 
-```
-[Escriu la teva resposta aquí]
-```
+- el métode en teoria es dispose(), tot i que no l'he trobat dins del codi, pero es important per a no acabar colapsant la memoria del teléfon, ja que les crides a la camara es van acumulant, i tambe poden bloquejar l'us del teléfon.
 
 ---
 
@@ -69,9 +67,11 @@ Al projecte **Camera**, el widget `CameraScreen` utilitza un `CameraController` 
 
 **Resposta:**
 
-```
-[Escriu la teva resposta aquí]
-```
+- No es pot fer await, ja que el propi métode initState() no es async, llavors no está permes.
+
+- Al no bloquejar el fil principal, permet donar feedback a l'usuari, mostrant algo que demostri que está carregant la aplicació (com un gif de carrega o algo similar), i així no sembla que la aplicació hagi petat.
+
+- _initializeControllerFuture guarda el Future del controlador, els dos treballen junts gestionant estats asincrons (async).
 
 ---
 
@@ -85,10 +85,14 @@ Què passaria si el servidor de l'API trigués 60 segons a respondre? L'aplicaci
 
 **Resposta:**
 
+- L'aplicació no es bloqueja, ja que el procés es asincrona (async), pero l'usuari veuria com triga en obtenir una resposta per part del servidor.
+
 ```dart
 // Escriu la modificació al getCarsPage aquí:
 Future<List<CarsModel>> getCarsPage(int page, int limit) async {
-  // ...
+      final response = await http
+        .get(uri, headers: _headers)
+        .timeout(const Duration(seconds: limit));
 }
 ```
 
@@ -102,9 +106,7 @@ Analitza el constructor `factory CarsModel.fromMapToCarObject(Map<String, dynami
 
 **Resposta:**
 
-```
-[Escriu la teva resposta aquí]
-```
+- Pasant el camp en cas de que no el reconeixi amb .parse si es que es pot, i en cas de que no es pugui, doncs aplicar la solució que podem veure amb la resta de camps (make: json['year'] as int? ?? '').
 
 ---
 
@@ -112,9 +114,7 @@ Analitza el constructor `factory CarsModel.fromMapToCarObject(Map<String, dynami
 
 **Resposta:**
 
-```
-[Escriu la teva resposta aquí]
-```
+- Es millor ja que no depens d'internet, es més rapid i tambe es mes fiable, ja que evitem errors externs pel servidor.
 
 ---
 
